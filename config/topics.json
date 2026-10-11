@@ -1,0 +1,30 @@
+{
+  "bridge": { "url": "ws://127.0.0.1:8765", "subprotocol": "foxglove.websocket.v1", "reconnectMs": 3000, "silentAfterMs": 2500 },
+  "topics": {
+    "scan": { "name": "/scan", "type": "sensor_msgs/msg/LaserScan", "widget": "LiDAR" },
+    "gps": { "name": "/fix", "type": "sensor_msgs/msg/NavSatFix", "widget": "GPS fix" },
+    "odom": { "name": "/odometry/global", "type": "nav_msgs/msg/Odometry", "widget": "Global EKF position, heading, and speed" },
+    "wheelOdom": { "name": "/wheel/odom", "type": "nav_msgs/msg/Odometry", "widget": "Encoder odometry speed" },
+    "imu": { "name": "/imu/data", "type": "sensor_msgs/msg/Imu", "widget": "Stamped vehicle IMU" },
+    "encoder": { "name": "/esp32/encoder", "type": "std_msgs/msg/Int32", "widget": "Cumulative encoder ticks" },
+    "jointStates": { "name": "/joint_states", "type": "sensor_msgs/msg/JointState", "widget": "Measured wheel and steering joints" },
+    "motorCommand": { "name": "/esp32/motor_cmd", "type": "std_msgs/msg/Int16", "widget": "Motor PWM command" },
+    "servoCommand": { "name": "/esp32/servo_cmd", "type": "std_msgs/msg/Int16", "widget": "Steering servo command" },
+    "progress": { "name": "/track/progress", "type": "std_msgs/msg/Float32", "widget": "Track progress" },
+    "plannerStatus": { "name": "/planner/status", "type": "std_msgs/msg/String", "widget": "Local planner state" },
+    "safetyGate": { "name": "/safety/gate_status", "type": "std_msgs/msg/String", "widget": "Command safety gate state" },
+    "obstacleStop": { "name": "/obstacle_stop", "type": "std_msgs/msg/Bool", "widget": "Safety stop state" },
+    "cmdVel": { "name": "/cmd_vel", "type": "geometry_msgs/msg/Twist", "widget": "Gated vehicle command" },
+    "waypointMarkers": { "name": "/waypoints/markers", "type": "visualization_msgs/msg/MarkerArray", "widget": "Waypoint list and map labels" },
+    "clickedPoint": { "name": "/clicked_point", "type": "geometry_msgs/msg/PointStamped", "widget": "Map click to add waypoint" }
+  },
+  "services": {
+    "add": { "name": "/waypoints/add_here", "type": "std_srvs/srv/Trigger" },
+    "start": { "name": "/waypoints/start", "type": "std_srvs/srv/Trigger" },
+    "undo": { "name": "/waypoints/undo", "type": "std_srvs/srv/Trigger" },
+    "clear": { "name": "/waypoints/clear", "type": "std_srvs/srv/Trigger" }
+  },
+  "definitions": {
+    "clickedPoint": "geometry_msgs/msg/PointStamped\nstd_msgs/msg/Header header\ngeometry_msgs/msg/Point point\n\n===\nMSG: std_msgs/msg/Header\nbuiltin_interfaces/msg/Time stamp\nstring frame_id\n\n===\nMSG: builtin_interfaces/msg/Time\nint32 sec\nuint32 nanosec\n\n===\nMSG: geometry_msgs/msg/Point\nfloat64 x\nfloat64 y\nfloat64 z"
+  }
+}

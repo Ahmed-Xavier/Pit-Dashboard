@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ENIMIA — Autonomous Stand Monitor</title>
+  <link rel="stylesheet" href="./styles/theme.css">
+  <link rel="stylesheet" href="./styles/layout.css">
+  <link rel="stylesheet" href="./styles/components.css">
+</head>
+<body>
+  <div id="app-root">
+    <!-- Top Header Bar -->
+    <div id="header-mount"></div>
+
+    <!-- Main Workspace Grid -->
+    <main class="main-workspace">
+      <!-- Left: Hardware & Subsystems Health Sidebar -->
+      <div id="sidebar-mount"></div>
+
+      <!-- Center & Right: Visualizations & Engineering Telemetry -->
+      <section class="content-area">
+        <!-- Upper Visuals: Sensor Fusion + Track Schematic + Camera -->
+        <div class="upper-visuals">
+          <div id="sensor-fusion-mount" class="sensor-fusion-container"></div>
+          <div class="side-visuals">
+            <div id="track-nav-mount" class="track-panel-container"></div>
+            <div id="camera-mount" class="camera-panel-container"></div>
+          </div>
+        </div>
+
+        <!-- Middle: 4-Stage Autonomy Pipeline Diagnostics -->
+        <div id="pipeline-mount" class="pipeline-strip"></div>
+
+        <!-- Lower: Multi-Signal Telemetry Charts & Chronological Event Log -->
+        <div class="lower-telemetry">
+          <div id="telemetry-mount" class="telemetry-charts-container"></div>
+          <div id="event-log-mount" class="event-log-container"></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Connection & Settings Modal Mount -->
+    <div id="modal-mount"></div>
+  </div>
+
+  <script type="module" src="./src/app.js"></script>
+</body>
+</html>

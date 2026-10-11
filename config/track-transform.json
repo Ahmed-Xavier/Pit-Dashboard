@@ -1,0 +1,9 @@
+{
+  "source": "Silesia Ring track.json traced image pixels; pixel y increases downward",
+  "sourceCenterPx": [300.0, 300.0],
+  "metersPerPixel": 1.4321,
+  "mapFrame": "map",
+  "mapX": "(pixel_x - 300) * 1.4321",
+  "mapY": "(300 - pixel_y) * 1.4321",
+  "units": "meters"
+}

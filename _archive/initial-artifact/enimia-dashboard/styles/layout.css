@@ -1,0 +1,366 @@
+/* ==========================================================================
+   ENIMIA Dashboard — Main Application Layout
+   Desktop-first: 1440 × 900 baseline, responsive grid structure
+   ========================================================================== */
+
+#app-root {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: var(--bg-app);
+}
+
+/* ==========================================================================
+   Header Bar (Compact, 48px)
+   ========================================================================== */
+.top-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 48px;
+  min-height: 48px;
+  padding: 0 var(--space-lg);
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  user-select: none;
+  z-index: 50;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.brand-group {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+}
+
+.brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.brand-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  border-radius: var(--radius-xs);
+  background-color: var(--bg-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+}
+
+.header-divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-color);
+}
+
+.session-metadata {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-item .meta-key {
+  font-size: 9px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.meta-item .meta-value {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.3;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+/* Mode Switcher (Impossible to confuse) */
+.mode-switch-group {
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  background-color: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+}
+
+.mode-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  border-radius: var(--radius-xs);
+  transition: all var(--transition-fast);
+}
+
+.mode-btn:hover {
+  color: var(--text-primary);
+}
+
+.mode-btn.active.demo-mode {
+  background-color: var(--bg-surface);
+  color: var(--accent-orange);
+  box-shadow: var(--shadow-subtle);
+}
+
+.mode-btn.active.live-mode {
+  background-color: var(--bg-surface);
+  color: var(--accent-olive);
+  box-shadow: var(--shadow-subtle);
+}
+
+.mode-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--text-muted);
+}
+
+.demo-mode .mode-dot {
+  background-color: var(--accent-orange);
+}
+
+.live-mode .mode-dot {
+  background-color: var(--accent-olive);
+}
+
+/* ==========================================================================
+   Main Application Workspace Grid
+   ========================================================================== */
+.main-workspace {
+  display: grid;
+  grid-template-columns: 290px 1fr;
+  flex: 1;
+  overflow: hidden;
+}
+
+/* Left Sidebar (Hardware & Subsystem Health) */
+.health-sidebar {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-sm) var(--space-md);
+  border-bottom: 1px solid var(--border-light);
+  background-color: var(--bg-app);
+}
+
+.sidebar-header-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.sidebar-footer {
+  padding: var(--space-sm) var(--space-md);
+  border-top: 1px solid var(--border-color);
+  background-color: var(--bg-subtle);
+}
+
+/* Right Main Content Area */
+.content-area {
+  display: grid;
+  grid-template-rows: 1fr 44px 210px;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Top Section: Sensor Fusion + Navigation/Camera */
+.upper-visuals {
+  display: grid;
+  grid-template-columns: minmax(500px, 1fr) 380px;
+  height: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Central Sensor-Fusion View */
+.sensor-fusion-container {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Right Side Stack: Track Map & Camera */
+.side-visuals {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-surface);
+}
+
+.track-panel-container {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid var(--border-color);
+  overflow: hidden;
+  position: relative;
+}
+
+.camera-panel-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Middle Strip: Autonomy Pipeline */
+.pipeline-strip {
+  display: flex;
+  align-items: center;
+  background-color: var(--bg-surface);
+  border-bottom: 1px solid var(--border-color);
+  padding: 0 var(--space-md);
+  overflow: hidden;
+  gap: var(--space-md);
+}
+
+/* Bottom Section: Telemetry Charts + Event Log */
+.lower-telemetry {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--bg-surface);
+}
+
+.telemetry-charts-container {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+  overflow: hidden;
+}
+
+.event-log-container {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Panel Header standard */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 28px;
+  min-height: 28px;
+  padding: 0 var(--space-md);
+  background-color: var(--bg-app);
+  border-bottom: 1px solid var(--border-color);
+  user-select: none;
+}
+
+.panel-title-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.panel-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-primary);
+}
+
+.panel-badge {
+  font-size: 9px;
+  font-weight: 600;
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.panel-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 22px;
+  padding: 0 6px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.icon-btn:hover {
+  color: var(--text-primary);
+  border-color: var(--text-secondary);
+}
+
+.icon-btn.active {
+  background: var(--accent-olive-bg);
+  border-color: var(--accent-olive);
+  color: var(--accent-olive);
+}

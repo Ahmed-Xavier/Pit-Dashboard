@@ -1,0 +1,127 @@
+/* ==========================================================================
+   ENIMIA Engineering Dashboard — Design System & Theme Tokens
+   Aesthetic: Warm, minimal, editorial motorsport engineering
+   Shell Eco-marathon Prototype Stand Monitor
+   ========================================================================== */
+
+:root {
+  /* Surface & Background Palette (Warm Neutrals) */
+  --bg-app: #F5F4EF;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #EEEEE8;
+  --bg-surface-active: #E8E8E1;
+  --bg-canvas: #FAF9F5;
+
+  /* Typography Colors (Charcoal to Muted) */
+  --text-primary: #292B27;
+  --text-secondary: #777970;
+  --text-muted: #9E9F97;
+  --text-inverse: #FAF9F5;
+
+  /* Structural Dividers & Borders */
+  --border-color: #DADBD4;
+  --border-light: #E7E8E2;
+  --border-focus: #68785A;
+
+  /* Motorsport Technical Accents */
+  --accent-olive: #68785A;
+  --accent-olive-light: #8A9A7B;
+  --accent-olive-bg: #EFF2EB;
+  --accent-olive-border: #C8D1C0;
+
+  --accent-orange: #C77C4A;
+  --accent-orange-light: #D9966C;
+  --accent-orange-bg: #F8EFE9;
+  --accent-orange-border: #E8C8B3;
+
+  /* Operational Status Colors */
+  --status-nominal: #68785A;
+  --status-nominal-bg: #EFF2EB;
+  --status-warn: #C87A28;
+  --status-warn-bg: #F8F1E7;
+  --status-warn-border: #ECC9A4;
+  --status-fault: #BD3838;
+  --status-fault-bg: #F7EAEA;
+  --status-fault-border: #E7B7B7;
+  --status-stale: #8A8072;
+  --status-stale-bg: #F0ECE4;
+  --status-disconnected: #9E9F97;
+  --status-disconnected-bg: #EEEEE8;
+
+  /* Typography Stack */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", "SF Mono", "Roboto Mono", Menlo, Consolas, "Courier New", monospace;
+
+  /* Radii (Restrained & Architectural) */
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+
+  /* Spacing Scale */
+  --space-2xs: 2px;
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 12px;
+  --space-lg: 16px;
+  --space-xl: 20px;
+
+  /* Shadows (Minimal & Flat) */
+  --shadow-subtle: 0 1px 2px rgba(41, 43, 39, 0.04);
+  --shadow-overlay: 0 4px 16px rgba(41, 43, 39, 0.08);
+
+  /* Transitions */
+  --transition-fast: 120ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset and base document typography */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-app);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-size: 13px;
+  line-height: 1.45;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow: hidden;
+}
+
+/* Tabular figures for telemetry & timestamps */
+.mono, .tabular-nums, code, pre, .telemetry-val {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.01em;
+}
+
+/* Uppercase technical badges */
+.tech-label {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-secondary);
+}
+
+/* Custom technical scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-subtle);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: var(--radius-xs);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}

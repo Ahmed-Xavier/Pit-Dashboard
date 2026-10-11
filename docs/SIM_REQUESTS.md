@@ -1,0 +1,5 @@
+# Simulation-side requests
+
+No simulation edit is requested based on the source audit. The existing bridge launch passes only `port`; current upstream ROS 2 foxglove_bridge defaults include `clientPublish`, `services`, and unrestricted `.*` topic, service, and client-topic whitelists. The pit client checks the actual advertised capabilities and service list at runtime.
+
+If the installed bridge was built/configured with reduced capabilities, run `scripts/start-extra-bridge.sh` from WSL. It starts a second bridge on port 8766 with `clientPublish` and `services`, a clicked-point client-publish whitelist, and the required topic/service whitelists. Then change only `config/topics.json` `bridge.url` to `ws://127.0.0.1:8766`. The helper sources `/opt/ros/jazzy` and `~/Autonomous-outdoor-RC/ros2_ws/install/setup.bash`; adjust that local source path if the workspace is elsewhere. The upstream bridge supports these parameters; exact launch arguments on an installed release can be checked with `ros2 run foxglove_bridge foxglove_bridge --ros-args --show-args`.
