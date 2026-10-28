@@ -9,9 +9,10 @@ export class HealthSidebarComponent {
   constructor(containerEl) {
     this.container = containerEl;
     this.expandedId = 'pi5'; // default expanded
+    this.lastSig = '';
     this.init();
     this.powerSummaryMarkup = this.container.querySelector('.power-summary-box').innerHTML;
-    store.subscribe(() => this.render());
+    store.subscribe((s, dirtyPanels) => this.render(dirtyPanels));
   }
 
   init() {
@@ -63,7 +64,9 @@ export class HealthSidebarComponent {
     this.render();
   }
 
-  render() {
+  render(dirtyPanels) {
+    if (dirtyPanels && !dirtyPanels.health) return;
+
     const listEl = this.container.querySelector('#sb-items-list');
     if (!listEl) return;
 
@@ -84,6 +87,9 @@ export class HealthSidebarComponent {
     ];
 
     const now = Date.now();
+    const sig = components.map(c => `${c.id}:${c.status}:${Number(c.rate||0).toFixed(0)}:${Math.floor((now - (c.lastMsgTime||0))/1000)}`).join('|') + `:${this.expandedId}`;
+    if (sig === this.lastSig) return;
+    this.lastSig = sig;
 
     listEl.innerHTML = components.map(c => {
       const isExpanded = this.expandedId === c.id;

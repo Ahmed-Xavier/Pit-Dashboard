@@ -211,7 +211,8 @@ export class SensorFusionComponent {
   startRenderLoop() {
     let lastRender = 0;
     const render = (now) => {
-      if (!document.hidden && now - lastRender >= 1000 / 30) {
+      const visible = this.container.getClientRects().length > 0;
+      if (!document.hidden && visible && now - lastRender >= 1000 / 30) {
         this.draw();
         lastRender = now;
       }
@@ -303,6 +304,13 @@ export class SensorFusionComponent {
     const maxX = Math.ceil((w - ox) / pixelStep) * step;
     const minY = Math.floor(-(h - oy) / pixelStep) * step;
     const maxY = Math.ceil(oy / pixelStep) * step;
+
+    // Invalid or extreme telemetry can produce bounds that are infinite or so
+    // large that adding the 2 m step no longer changes the floating-point value.
+    const bounds = [minX, maxX, minY, maxY];
+    if (!Number.isFinite(pixelStep) || pixelStep <= 0 || !bounds.every(Number.isFinite) ||
+        (maxX - minX) / step > 1000 || (maxY - minY) / step > 1000 ||
+        (minX <= maxX && minX + step === minX) || (minY <= maxY && minY + step === minY)) return;
 
     // Vertical grid lines
     for (let x = minX; x <= maxX; x += step) {

@@ -9,8 +9,10 @@ export class EventLogComponent {
   constructor(containerEl) {
     this.container = containerEl;
     this.currentFilter = 'all'; // 'all' | 'warn' | 'fault'
+    this.lastEventCount = -1;
+    this.lastFilter = 'all';
     this.init();
-    store.subscribe(() => this.render());
+    store.subscribe((s, dirtyPanels) => this.render(dirtyPanels));
   }
 
   init() {
@@ -60,7 +62,13 @@ export class EventLogComponent {
     this.render();
   }
 
-  render() {
+  render(dirtyPanels) {
+    if (dirtyPanels && !dirtyPanels.eventLog && this.lastEventCount === store.events.length && this.lastFilter === this.currentFilter) {
+      return;
+    }
+    this.lastEventCount = store.events.length;
+    this.lastFilter = this.currentFilter;
+
     const listEl = this.container.querySelector('#evt-list');
     const countEl = this.container.querySelector('#evt-count');
     if (!listEl) return;

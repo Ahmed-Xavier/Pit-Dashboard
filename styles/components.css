@@ -583,6 +583,11 @@
   gap: 4px;
 }
 
+.event-log-container .icon-btn,
+.event-log-container .log-filter-btn {
+  flex: 0 0 auto;
+}
+
 .log-filter-btn {
   font-size: 9px;
   font-weight: 600;
@@ -786,3 +791,10 @@
 .btn-primary:hover {
   background: var(--accent-olive-light);
 }
+.world-provider-select { min-width: 58px; }
+#map-attribution {
+  position: absolute; right: 8px; bottom: 8px; z-index: 5;
+  padding: 3px 6px; border-radius: 3px; background: rgba(255,255,255,.88);
+  color: #333; font: 11px/1.2 sans-serif; text-decoration: none;
+}
+#map-attribution[hidden] { display: none; }

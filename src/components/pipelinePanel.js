@@ -8,8 +8,9 @@ import { store } from '../state.js';
 export class PipelinePanelComponent {
   constructor(containerEl) {
     this.container = containerEl;
+    this.lastSig = '';
     this.init();
-    store.subscribe(() => this.render());
+    store.subscribe((s, dirtyPanels) => this.render(dirtyPanels));
   }
 
   init() {
@@ -21,7 +22,9 @@ export class PipelinePanelComponent {
     this.render();
   }
 
-  render() {
+  render(dirtyPanels) {
+    if (dirtyPanels && !dirtyPanels.pipeline) return;
+
     const stagesEl = this.container.querySelector('#pipeline-stages-container');
     if (!stagesEl) return;
 
@@ -32,6 +35,10 @@ export class PipelinePanelComponent {
       { key: 'planning', num: '03', name: 'PLANNING', data: p.planning },
       { key: 'control', num: '04', name: 'CONTROL', data: p.control }
     ];
+
+    const sig = stages.map(s => `${s.data.status}:${Number(s.data.hz || 0).toFixed(0)}:${s.data.diagnostic}`).join('|');
+    if (sig === this.lastSig) return;
+    this.lastSig = sig;
 
     stagesEl.innerHTML = stages.map((s, idx) => {
       let statusClass = 'active';

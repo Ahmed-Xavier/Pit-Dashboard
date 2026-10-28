@@ -1,0 +1,1 @@
+in this folder, the agent is supposed to build the final stripped web based Dashboard that has the desired UI, can load the sdf world and read topics like foxglove does

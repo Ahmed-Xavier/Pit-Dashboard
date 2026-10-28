@@ -295,6 +295,35 @@
   overflow: hidden;
 }
 
+.event-log-container .panel-header {
+  height: auto;
+  min-height: 28px;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+
+.event-log-container .panel-title-group {
+  flex: 1 1 180px;
+}
+
+.event-log-container .panel-controls {
+  flex: 0 1 auto;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+@media (max-width: 900px) {
+  .event-log-container .panel-header {
+    align-items: flex-start;
+  }
+
+  .event-log-container .panel-controls {
+    width: 100%;
+  }
+}
+
 /* Panel Header standard */
 .panel-header {
   display: flex;
@@ -312,6 +341,16 @@
   display: flex;
   align-items: center;
   gap: var(--space-sm);
+  min-width: 0; /* allow flex children to shrink */
+  overflow: hidden;
+}
+
+.panel-title-group > .panel-title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex-shrink: 1;
+  min-width: 0;
 }
 
 .panel-title {
@@ -340,10 +379,22 @@
   justify-content: flex-end;
 }
 
+.waypoint-control-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  min-height: 30px;
+  padding: 3px var(--space-md);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-light);
+}
+
 .waypoint-controls {
   display: inline-flex;
   align-items: center;
   gap: 3px;
+  flex-wrap: wrap;
 }
 
 .waypoint-btn {

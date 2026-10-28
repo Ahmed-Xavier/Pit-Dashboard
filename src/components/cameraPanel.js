@@ -35,7 +35,7 @@ export class CameraPanelComponent {
         <div class="camera-disconnected-placeholder" id="cam-placeholder">
           <div class="camera-placeholder-title">CAMERA STREAM INACTIVE</div>
           <div class="camera-placeholder-desc">
-            No camera image publisher is configured in the current Autonomous-outdoor-RC ROS 2 project.
+            Waiting for /camera/image_raw from the simulation bridge.
           </div>
         </div>
 
@@ -97,7 +97,7 @@ export class CameraPanelComponent {
     const w = this.displayWidth;
     const h = this.displayHeight;
 
-    const isLiveDisconnected = store.mode === 'live';
+    const isLiveDisconnected = store.mode === 'live' && !store.cameraFrame;
 
     if (isLiveDisconnected) {
       this.placeholder.classList.add('active');
@@ -111,6 +111,11 @@ export class CameraPanelComponent {
       this.canvas.style.display = 'block';
       this.container.querySelector('#cam-info').style.display = '';
       this.container.querySelector('#cam-tags').style.display = '';
+    }
+
+    if (store.mode === 'live' && store.cameraFrame) {
+      this.drawRosImage(store.cameraFrame);
+      return;
     }
 
     // 1. Synthetic forward perspective rendering (Shell Eco-marathon test track)
@@ -244,7 +249,6 @@ export class CameraPanelComponent {
         ctx.textAlign = 'start';
         ctx.textBaseline = 'alphabetic';
       }
-    }
 
     // 3. Perception AI Overlays (Bounding Boxes, Confidences, Lane boundaries)
     if (this.showOverlays) {
@@ -299,5 +303,45 @@ export class CameraPanelComponent {
       ctx.lineTo(w * 0.5, horizonY + 8);
       ctx.stroke();
     }
+  }
+
+  drawRosImage(frame) {
+    const { width, height, encoding, step, data } = frame;
+    if (!width || !height || !data) return;
+
+    if (this.canvas.width !== width || this.canvas.height !== height) {
+      this.canvas.width = width;
+      this.canvas.height = height;
+      this.canvas.style.aspectRatio = `${width} / ${height}`;
+      this.ctx = this.canvas.getContext('2d');
+    }
+
+    const pixels = new Uint8ClampedArray(width * height * 4);
+    const normalizedEncoding = String(encoding || '').toLowerCase();
+    const channels = normalizedEncoding === 'mono8' ? 1 :
+      (normalizedEncoding === 'rgba8' || normalizedEncoding === 'bgra8') ? 4 : 3;
+    const rowStride = step || width * channels;
+
+    for (let y = 0; y < height; y++) {
+      for (let x = 0; x < width; x++) {
+        const source = y * rowStride + x * channels;
+        const target = (y * width + x) * 4;
+        const blueFirst = normalizedEncoding === 'bgr8' || normalizedEncoding === 'bgra8';
+        const red = channels === 1 ? data[source] : data[source + (blueFirst ? 2 : 0)];
+        const green = channels === 1 ? red : data[source + 1];
+        const blue = channels === 1 ? red : data[source + (blueFirst ? 0 : 2)];
+        pixels[target] = red;
+        pixels[target + 1] = green;
+        pixels[target + 2] = blue;
+        pixels[target + 3] = channels === 4 ? data[source + 3] : 255;
+      }
+    }
+
+    this.ctx.putImageData(new ImageData(pixels, width, height), 0, 0);
+    this.container.querySelector('#cam-fps-badge').textContent =
+      `${(store.components.camera.fps || 0).toFixed(1)} FPS`;
+    this.container.querySelector('#cam-info').innerHTML =
+      `<span>${width}×${height}</span><span>|</span><span>${normalizedEncoding.toUpperCase()}</span>`;
+    this.container.querySelector('#cam-tags').style.display = this.showOverlays ? '' : 'none';
   }
 }

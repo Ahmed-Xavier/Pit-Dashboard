@@ -10,7 +10,7 @@ export class HeaderComponent {
   constructor(containerEl) {
     this.container = containerEl;
     this.init();
-    store.subscribe(() => this.render());
+    store.subscribe((s, dirtyPanels) => this.render(dirtyPanels));
   }
 
   init() {
@@ -114,7 +114,9 @@ export class HeaderComponent {
     }
   }
 
-  render() {
+  render(dirtyPanels) {
+    if (dirtyPanels && !dirtyPanels.header) return;
+
     const sessionEl = this.container.querySelector('#hdr-session-id');
     const trackEl = this.container.querySelector('#hdr-track-name');
     if (sessionEl) sessionEl.textContent = store.session.id;

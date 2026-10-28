@@ -9,12 +9,12 @@ export class WaypointControlsComponent {
     this.result = 'LIVE FEED required';
     this.resultKind = '';
     this.init();
-    store.subscribe(() => this.render());
+    store.subscribe((s, dirtyPanels) => this.render(dirtyPanels));
     this.loadConfig();
   }
 
   init() {
-    const controls = this.container.querySelector('.panel-controls');
+    const controls = this.container.querySelector('.waypoint-control-bar');
     if (!controls) return;
     controls.insertAdjacentHTML('beforeend', `
       <div class="waypoint-controls" role="group" aria-label="Waypoint controls">
@@ -51,10 +51,13 @@ export class WaypointControlsComponent {
       rosBridge.capabilities.has('services') && !this.inFlight);
   }
 
-  render() {
+  render(dirtyPanels) {
+    if (dirtyPanels && !dirtyPanels.waypoints) return;
     if (!this.resultEl) return;
     this.container.querySelectorAll('[data-waypoint-action]').forEach((button) => {
-      button.disabled = !this.canCall(button.dataset.waypointAction);
+      const ready = this.canCall(button.dataset.waypointAction);
+      button.disabled = !ready;
+      button.title = ready ? `Call ${this.services?.[button.dataset.waypointAction]?.name}` : 'Connect Foxglove in LIVE mode and wait for this service to be advertised';
     });
     this.resultEl.textContent = this.result;
     this.resultEl.className = `waypoint-action-result ${this.resultKind}`;
@@ -71,13 +74,14 @@ export class WaypointControlsComponent {
     const service = this.services?.[key];
     if (!service) return this.setResult(`Missing service config for ${key}`, 'error');
     this.inFlight = true;
-    this.setResult(`Calling ${service.name}…`);
+    const label = key.toUpperCase();
+    this.setResult(`${label}: calling…`);
     try {
       const response = await rosBridge.callTrigger(service.name);
-      this.setResult(response.message || (response.success ? 'Success' : 'Service returned failure'),
+      this.setResult(response.success ? `${label}: ok (${response.message || 'Success'})` : `${label}: failed (${response.message || 'Service returned failure'})`,
         response.success ? 'success' : 'error');
     } catch (err) {
-      this.setResult(err.message, 'error');
+      this.setResult(/timed out after 5 s/i.test(err.message) ? `${label}: timeout after 5 s` : `${label}: failed (${err.message})`, 'error');
     } finally {
       this.inFlight = false;
       this.render();

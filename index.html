@@ -7,6 +7,15 @@
   <link rel="stylesheet" href="./styles/theme.css">
   <link rel="stylesheet" href="./styles/layout.css">
   <link rel="stylesheet" href="./styles/components.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "./vendor/three/three.module.js",
+        "three/addons/": "./vendor/three/",
+        "three/examples/jsm/": "./vendor/three/"
+      }
+    }
+  </script>
 </head>
 <body>
   <div id="app-root">
@@ -20,9 +29,10 @@
 
       <!-- Center & Right: Visualizations & Engineering Telemetry -->
       <section class="content-area">
-        <!-- Upper Visuals: Sensor Fusion + Track Schematic + Camera -->
+        <!-- Upper Visuals: 3D Scene / 2D Sensor Fusion + Track Schematic + Camera -->
         <div class="upper-visuals">
-          <div id="sensor-fusion-mount" class="sensor-fusion-container"></div>
+          <div id="scene3d-mount" class="sensor-fusion-container"></div>
+          <div id="sensor-fusion-mount" class="sensor-fusion-container" style="display: none;"></div>
           <div class="side-visuals">
             <div id="track-nav-mount" class="track-panel-container"></div>
             <div id="camera-mount" class="camera-panel-container"></div>

@@ -1,0 +1,648 @@
+{
+  "durationSec": 300,
+  "samples": [
+    {
+      "minute": 1,
+      "heapBytes": 24079219,
+      "topicRows": [
+        {
+          "topic": "/tf",
+          "count": 951,
+          "hz": 10.9,
+          "avgMs": 0.027,
+          "maxMs": 5.3,
+          "avgDecodeMs": 0.019,
+          "avgBytes": 213,
+          "totalKb": 197.8
+        },
+        {
+          "topic": "/imu/data",
+          "count": 950,
+          "hz": 10.9,
+          "avgMs": 0.007,
+          "maxMs": 0.2,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 341,
+          "totalKb": 316.4
+        },
+        {
+          "topic": "/cmd_vel",
+          "count": 535,
+          "hz": 6.1,
+          "avgMs": 0.007,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 69,
+          "totalKb": 36
+        },
+        {
+          "topic": "/esp32/encoder",
+          "count": 535,
+          "hz": 6.1,
+          "avgMs": 0.009,
+          "maxMs": 1.3,
+          "avgDecodeMs": 0.004,
+          "avgBytes": 21,
+          "totalKb": 11
+        },
+        {
+          "topic": "/esp32/motor_cmd",
+          "count": 535,
+          "hz": 6.1,
+          "avgMs": 0.004,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.003,
+          "avgBytes": 19,
+          "totalKb": 9.9
+        },
+        {
+          "topic": "/esp32/servo_cmd",
+          "count": 535,
+          "hz": 6.1,
+          "avgMs": 0.005,
+          "maxMs": 0.2,
+          "avgDecodeMs": 0.004,
+          "avgBytes": 19,
+          "totalKb": 9.9
+        },
+        {
+          "topic": "/joint_states",
+          "count": 523,
+          "hz": 6,
+          "avgMs": 0.024,
+          "maxMs": 2,
+          "avgDecodeMs": 0.023,
+          "avgBytes": 197,
+          "totalKb": 100.6
+        },
+        {
+          "topic": "/odom",
+          "count": 523,
+          "hz": 6,
+          "avgMs": 0.013,
+          "maxMs": 1.7,
+          "avgDecodeMs": 0.012,
+          "avgBytes": 733,
+          "totalKb": 374.4
+        },
+        {
+          "topic": "/wheel/odom",
+          "count": 523,
+          "hz": 6,
+          "avgMs": 0.01,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.008,
+          "avgBytes": 733,
+          "totalKb": 374.4
+        },
+        {
+          "topic": "/odometry/global",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.013,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.011,
+          "avgBytes": 733,
+          "totalKb": 150.3
+        },
+        {
+          "topic": "/odometry/local",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.036,
+          "maxMs": 2.5,
+          "avgDecodeMs": 0.033,
+          "avgBytes": 741,
+          "totalKb": 152
+        },
+        {
+          "topic": "/scan",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.02,
+          "maxMs": 0.2,
+          "avgDecodeMs": 0.02,
+          "avgBytes": 5837,
+          "totalKb": 1197
+        },
+        {
+          "topic": "/planner/markers",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.303,
+          "maxMs": 9.9,
+          "avgDecodeMs": 0.301,
+          "avgBytes": 23599,
+          "totalKb": 4839.6
+        },
+        {
+          "topic": "/track/progress",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.008,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.007,
+          "avgBytes": 21,
+          "totalKb": 4.3
+        },
+        {
+          "topic": "/waypoints/guidance",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.016,
+          "maxMs": 1.2,
+          "avgDecodeMs": 0.016,
+          "avgBytes": 45,
+          "totalKb": 9.2
+        },
+        {
+          "topic": "/planner/status",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.007,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.005,
+          "avgBytes": 24,
+          "totalKb": 4.9
+        },
+        {
+          "topic": "/safety/gate_status",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.004,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.004,
+          "avgBytes": 26,
+          "totalKb": 5.3
+        },
+        {
+          "topic": "/obstacle_stop",
+          "count": 210,
+          "hz": 2.4,
+          "avgMs": 0.007,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 18,
+          "totalKb": 3.7
+        },
+        {
+          "topic": "/fix",
+          "count": 130,
+          "hz": 1.5,
+          "avgMs": 0.014,
+          "maxMs": 0.5,
+          "avgDecodeMs": 0.012,
+          "avgBytes": 142,
+          "totalKb": 18
+        },
+        {
+          "topic": "/world_markers",
+          "count": 54,
+          "hz": 0.6,
+          "avgMs": 0.041,
+          "maxMs": 1,
+          "avgDecodeMs": 0.041,
+          "avgBytes": 262,
+          "totalKb": 13.8
+        }
+      ],
+      "uiTick": {
+        "count": 210,
+        "avgMs": 0.5080952381094297,
+        "maxMs": 14.899999991059303
+      },
+      "fps": 7,
+      "connected": true
+    },
+    {
+      "minute": 3,
+      "heapBytes": 19058201,
+      "topicRows": [
+        {
+          "topic": "/tf",
+          "count": 2690,
+          "hz": 9.5,
+          "avgMs": 0.026,
+          "maxMs": 5.3,
+          "avgDecodeMs": 0.018,
+          "avgBytes": 213,
+          "totalKb": 559.5
+        },
+        {
+          "topic": "/imu/data",
+          "count": 2690,
+          "hz": 9.5,
+          "avgMs": 0.01,
+          "maxMs": 2.8,
+          "avgDecodeMs": 0.007,
+          "avgBytes": 341,
+          "totalKb": 895.8
+        },
+        {
+          "topic": "/cmd_vel",
+          "count": 1492,
+          "hz": 5.3,
+          "avgMs": 0.007,
+          "maxMs": 0.7,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 69,
+          "totalKb": 100.5
+        },
+        {
+          "topic": "/esp32/encoder",
+          "count": 1492,
+          "hz": 5.3,
+          "avgMs": 0.007,
+          "maxMs": 1.3,
+          "avgDecodeMs": 0.003,
+          "avgBytes": 21,
+          "totalKb": 30.6
+        },
+        {
+          "topic": "/esp32/motor_cmd",
+          "count": 1492,
+          "hz": 5.3,
+          "avgMs": 0.007,
+          "maxMs": 2.5,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 19,
+          "totalKb": 27.7
+        },
+        {
+          "topic": "/esp32/servo_cmd",
+          "count": 1492,
+          "hz": 5.3,
+          "avgMs": 0.006,
+          "maxMs": 1,
+          "avgDecodeMs": 0.004,
+          "avgBytes": 19,
+          "totalKb": 27.7
+        },
+        {
+          "topic": "/joint_states",
+          "count": 1467,
+          "hz": 5.2,
+          "avgMs": 0.028,
+          "maxMs": 4.8,
+          "avgDecodeMs": 0.026,
+          "avgBytes": 197,
+          "totalKb": 282.2
+        },
+        {
+          "topic": "/odom",
+          "count": 1467,
+          "hz": 5.2,
+          "avgMs": 0.014,
+          "maxMs": 2.3,
+          "avgDecodeMs": 0.012,
+          "avgBytes": 733,
+          "totalKb": 1050.1
+        },
+        {
+          "topic": "/wheel/odom",
+          "count": 1466,
+          "hz": 5.2,
+          "avgMs": 0.012,
+          "maxMs": 2.2,
+          "avgDecodeMs": 0.01,
+          "avgBytes": 733,
+          "totalKb": 1049.4
+        },
+        {
+          "topic": "/odometry/global",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.015,
+          "maxMs": 0.9,
+          "avgDecodeMs": 0.013,
+          "avgBytes": 733,
+          "totalKb": 411.6
+        },
+        {
+          "topic": "/odometry/local",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.021,
+          "maxMs": 2.5,
+          "avgDecodeMs": 0.02,
+          "avgBytes": 741,
+          "totalKb": 416.1
+        },
+        {
+          "topic": "/scan",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.026,
+          "maxMs": 2.9,
+          "avgDecodeMs": 0.025,
+          "avgBytes": 5837,
+          "totalKb": 3277.6
+        },
+        {
+          "topic": "/planner/markers",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 2.439,
+          "maxMs": 704.2,
+          "avgDecodeMs": 2.436,
+          "avgBytes": 23599,
+          "totalKb": 13251.4
+        },
+        {
+          "topic": "/track/progress",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.009,
+          "maxMs": 0.3,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 21,
+          "totalKb": 11.8
+        },
+        {
+          "topic": "/waypoints/guidance",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.015,
+          "maxMs": 1.2,
+          "avgDecodeMs": 0.013,
+          "avgBytes": 45,
+          "totalKb": 25.3
+        },
+        {
+          "topic": "/planner/status",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.013,
+          "maxMs": 2.3,
+          "avgDecodeMs": 0.012,
+          "avgBytes": 24,
+          "totalKb": 13.5
+        },
+        {
+          "topic": "/safety/gate_status",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.009,
+          "maxMs": 1.1,
+          "avgDecodeMs": 0.008,
+          "avgBytes": 26,
+          "totalKb": 14.6
+        },
+        {
+          "topic": "/obstacle_stop",
+          "count": 575,
+          "hz": 2,
+          "avgMs": 0.007,
+          "maxMs": 0.1,
+          "avgDecodeMs": 0.005,
+          "avgBytes": 18,
+          "totalKb": 10.1
+        },
+        {
+          "topic": "/fix",
+          "count": 364,
+          "hz": 1.3,
+          "avgMs": 0.021,
+          "maxMs": 1.2,
+          "avgDecodeMs": 0.02,
+          "avgBytes": 142,
+          "totalKb": 50.5
+        },
+        {
+          "topic": "/world_markers",
+          "count": 150,
+          "hz": 0.5,
+          "avgMs": 0.038,
+          "maxMs": 1,
+          "avgDecodeMs": 0.037,
+          "avgBytes": 262,
+          "totalKb": 38.4
+        }
+      ],
+      "uiTick": {
+        "count": 578,
+        "avgMs": 2.828892733631043,
+        "maxMs": 199.90000000596046
+      },
+      "fps": 3,
+      "connected": true
+    },
+    {
+      "minute": 5,
+      "heapBytes": 18434372,
+      "topicRows": [
+        {
+          "topic": "/tf",
+          "count": 5508,
+          "hz": 12.8,
+          "avgMs": 0.023,
+          "maxMs": 5.3,
+          "avgDecodeMs": 0.016,
+          "avgBytes": 213,
+          "totalKb": 1145.7
+        },
+        {
+          "topic": "/imu/data",
+          "count": 5507,
+          "hz": 12.8,
+          "avgMs": 0.009,
+          "maxMs": 2.8,
+          "avgDecodeMs": 0.007,
+          "avgBytes": 341,
+          "totalKb": 1833.9
+        },
+        {
+          "topic": "/cmd_vel",
+          "count": 3002,
+          "hz": 7,
+          "avgMs": 0.006,
+          "maxMs": 0.7,
+          "avgDecodeMs": 0.005,
+          "avgBytes": 69,
+          "totalKb": 202.3
+        },
+        {
+          "topic": "/esp32/encoder",
+          "count": 3002,
+          "hz": 7,
+          "avgMs": 0.006,
+          "maxMs": 1.3,
+          "avgDecodeMs": 0.003,
+          "avgBytes": 21,
+          "totalKb": 61.6
+        },
+        {
+          "topic": "/esp32/motor_cmd",
+          "count": 3001,
+          "hz": 7,
+          "avgMs": 0.007,
+          "maxMs": 2.5,
+          "avgDecodeMs": 0.005,
+          "avgBytes": 19,
+          "totalKb": 55.7
+        },
+        {
+          "topic": "/esp32/servo_cmd",
+          "count": 3001,
+          "hz": 7,
+          "avgMs": 0.005,
+          "maxMs": 1,
+          "avgDecodeMs": 0.004,
+          "avgBytes": 19,
+          "totalKb": 55.7
+        },
+        {
+          "topic": "/odom",
+          "count": 2947,
+          "hz": 6.9,
+          "avgMs": 0.012,
+          "maxMs": 2.3,
+          "avgDecodeMs": 0.01,
+          "avgBytes": 733,
+          "totalKb": 2109.5
+        },
+        {
+          "topic": "/wheel/odom",
+          "count": 2947,
+          "hz": 6.9,
+          "avgMs": 0.01,
+          "maxMs": 2.2,
+          "avgDecodeMs": 0.009,
+          "avgBytes": 733,
+          "totalKb": 2109.5
+        },
+        {
+          "topic": "/joint_states",
+          "count": 2947,
+          "hz": 6.8,
+          "avgMs": 0.024,
+          "maxMs": 4.8,
+          "avgDecodeMs": 0.022,
+          "avgBytes": 197,
+          "totalKb": 567
+        },
+        {
+          "topic": "/odometry/global",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.013,
+          "maxMs": 0.9,
+          "avgDecodeMs": 0.012,
+          "avgBytes": 733,
+          "totalKb": 775.9
+        },
+        {
+          "topic": "/odometry/local",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.016,
+          "maxMs": 2.5,
+          "avgDecodeMs": 0.015,
+          "avgBytes": 741,
+          "totalKb": 784.4
+        },
+        {
+          "topic": "/scan",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.022,
+          "maxMs": 2.9,
+          "avgDecodeMs": 0.02,
+          "avgBytes": 5837,
+          "totalKb": 6179
+        },
+        {
+          "topic": "/planner/markers",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 1.405,
+          "maxMs": 704.2,
+          "avgDecodeMs": 1.403,
+          "avgBytes": 23599,
+          "totalKb": 24981.8
+        },
+        {
+          "topic": "/track/progress",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.01,
+          "maxMs": 0.4,
+          "avgDecodeMs": 0.007,
+          "avgBytes": 21,
+          "totalKb": 22.2
+        },
+        {
+          "topic": "/waypoints/guidance",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.011,
+          "maxMs": 1.2,
+          "avgDecodeMs": 0.01,
+          "avgBytes": 45,
+          "totalKb": 47.6
+        },
+        {
+          "topic": "/planner/status",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.012,
+          "maxMs": 2.3,
+          "avgDecodeMs": 0.01,
+          "avgBytes": 24,
+          "totalKb": 25.4
+        },
+        {
+          "topic": "/safety/gate_status",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.19,
+          "maxMs": 194.9,
+          "avgDecodeMs": 0.01,
+          "avgBytes": 26,
+          "totalKb": 27.5
+        },
+        {
+          "topic": "/obstacle_stop",
+          "count": 1084,
+          "hz": 2.5,
+          "avgMs": 0.008,
+          "maxMs": 1.6,
+          "avgDecodeMs": 0.006,
+          "avgBytes": 18,
+          "totalKb": 19.1
+        },
+        {
+          "topic": "/fix",
+          "count": 688,
+          "hz": 1.6,
+          "avgMs": 0.02,
+          "maxMs": 1.8,
+          "avgDecodeMs": 0.018,
+          "avgBytes": 142,
+          "totalKb": 95.4
+        },
+        {
+          "topic": "/world_markers",
+          "count": 256,
+          "hz": 0.6,
+          "avgMs": 0.03,
+          "maxMs": 1,
+          "avgDecodeMs": 0.029,
+          "avgBytes": 262,
+          "totalKb": 65.5
+        }
+      ],
+      "uiTick": {
+        "count": 978,
+        "avgMs": 3.075869120779335,
+        "maxMs": 206
+      },
+      "fps": 2,
+      "connected": true
+    }
+  ],
+  "longTaskCount": 1886,
+  "longTasksOver100ms": 1858,
+  "longTaskMaxMs": 1373,
+  "errors": []
+}

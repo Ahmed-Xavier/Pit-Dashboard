@@ -1,0 +1,14 @@
+{
+  "name": "pit-dashboard",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "verify:decoder": "node tools/verify_decoder.mjs",
+    "test:waypoints": "node tools/test_waypoint_ui.mjs",
+    "test:point-stamped": "node tools/test_point_stamped_encoder.mjs",
+    "test:replay-assets": "node tools/test_replay_assets.mjs",
+    "test:live-urdf": "node tools/test_live_urdf.mjs",
+    "test:geo-ref": "node tools/test_geo_ref.mjs",
+    "test:map-provider": "node tools/test_map_provider.mjs"
+  }
+}

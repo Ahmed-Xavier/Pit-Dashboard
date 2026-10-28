@@ -1,13 +1,24 @@
-/* ==========================================================================
-   ENIMIA Dashboard — Reactive State Store
-   Manages telemetry, sensor freshness, pipeline diagnostics, and events
-   ========================================================================== */
+import { config } from '/config.js';
+import { debugInstrumentation } from './debugInstrumentation.js';
 
 class StateStore {
   constructor() {
     this.listeners = new Set();
-    this.notifyTimer = null;
-    this.notifyIntervalMs = 100;
+    this.notifyIntervalMs = 1000 / (config.ui?.updateHz || 10);
+    this.drainCallback = null;
+    this.uiTickTimer = null;
+
+    this.dirtyPanels = {
+      pipeline: true,
+      health: true,
+      header: true,
+      telemetry: true,
+      waypoints: true,
+      eventLog: true,
+      camera: true
+    };
+
+    this.startUiTick();
 
     // Mode: 'demo' or 'live'
     this.mode = 'demo';
@@ -22,8 +33,9 @@ class StateStore {
     // Live ROS Connection state
     this.connection = {
       status: 'DISCONNECTED', // 'DISCONNECTED' | 'CONNECTING' | 'CONNECTED' | 'FAULT'
-      endpoint: 'ws://127.0.0.1:8765',
+      endpoint: new URLSearchParams(window.location.search).get('bridge') || 'ws://127.0.0.1:8765',
       bridgeType: 'foxglove', // 'foxglove' | 'rosbridge'
+      protocol: '',
       rtt: 0,
       msgRate: 0,
       totalPackets: 0,
@@ -201,11 +213,14 @@ class StateStore {
 
     // Track definition waypoints
     this.trackWaypoints = [];
+    this.trackWaypointLine = [];
+    this.robotDescription = null;
     this.trackCenterline = [];
     this.hasGlobalOdom = false;
 
     // Current LiDAR scan points (relative to vehicle: [{x, y, range, angle, intensity}])
     this.lidarPoints = [];
+    this.cameraFrame = null;
     this.lidarObstacles = [];
 
     // Camera perception detections
@@ -303,18 +318,64 @@ class StateStore {
     return () => this.listeners.delete(listener);
   }
 
-  notify() {
-    if (this.notifyTimer !== null) return;
-    this.notifyTimer = setTimeout(() => {
-      this.notifyTimer = null;
-      for (const listener of this.listeners) {
-        try {
-          listener(this);
-        } catch (err) {
-          console.error('Dashboard state listener failed:', err);
-        }
+  registerDrainCallback(fn) {
+    this.drainCallback = fn;
+  }
+
+  startUiTick() {
+    if (this.uiTickTimer) return;
+    this.uiTickTimer = setInterval(() => this.uiTick(), this.notifyIntervalMs);
+  }
+
+  stopUiTick() {
+    if (this.uiTickTimer) {
+      clearInterval(this.uiTickTimer);
+      this.uiTickTimer = null;
+    }
+  }
+
+  uiTick() {
+    const tickStartedAt = performance.now();
+    if (this.drainCallback && this.mode === 'live') {
+      this.drainCallback();
+    }
+    this.checkFreshness();
+
+    // Check if any panel has pending changes
+    const hasDirty = Object.values(this.dirtyPanels).some(v => v);
+    if (!hasDirty && this.mode === 'live') {
+      debugInstrumentation.recordUiTick(performance.now() - tickStartedAt);
+      return;
+    }
+
+    const t0 = performance.now();
+    for (const listener of this.listeners) {
+      try {
+        listener(this, this.dirtyPanels);
+      } catch (err) {
+        console.error('Dashboard state listener failed:', err);
       }
-    }, this.notifyIntervalMs);
+    }
+    const elapsed = performance.now() - t0;
+    debugInstrumentation.recordUiTick(performance.now() - tickStartedAt);
+    if (elapsed > 100) {
+      debugInstrumentation.logLongFrame('UI_TICK_LISTENERS', elapsed);
+    }
+
+    // Reset dirty flags
+    for (const key of Object.keys(this.dirtyPanels)) {
+      this.dirtyPanels[key] = false;
+    }
+  }
+
+  notify(panelKey) {
+    if (panelKey) {
+      this.dirtyPanels[panelKey] = true;
+    } else {
+      for (const k of Object.keys(this.dirtyPanels)) {
+        this.dirtyPanels[k] = true;
+      }
+    }
   }
 
   setMode(mode) {
@@ -322,7 +383,7 @@ class StateStore {
     this.mode = mode;
     if (mode === 'live') {
       this.resetLiveData();
-      this.session = { id: 'LIVE ROS 2', track: 'SILESIA RING', startTime: Date.now() };
+      this.session = { id: 'LIVE ROS 2', track: 'ADC COURSE', startTime: Date.now() };
     }
     this.addEvent({
       source: 'SYSTEM',
@@ -344,11 +405,13 @@ class StateStore {
     this.odomHistory = [];
     this.plannedPath = [];
     this.trackWaypoints = [];
+    this.trackWaypointLine = [];
     this.trackCenterline = [];
     this.hasGlobalOdom = false;
     this.trackProgressReceived = false;
     this.guidance = null;
     this.lidarPoints = [];
+    this.cameraFrame = null;
     this.lidarObstacles = [];
     this.perceptionDetections = [];
     this.lanePolynomials = { left: { detected: false }, right: { detected: false } };
@@ -380,18 +443,28 @@ class StateStore {
     this.connection.totalPackets = 0;
   }
 
-  addEvent({ source, severity, message, context = null }) {
+  addEvent(sourceOrObj, severity, message) {
     const now = Date.now();
-    const event = {
-      id: `evt-${Date.now()}-${Math.floor(Math.random() * 1000)}`,
+    let src, sev, msg;
+    if (sourceOrObj && typeof sourceOrObj === 'object') {
+      // Object-form: addEvent({ source, severity, message })
+      src = sourceOrObj.source || 'SYSTEM';
+      sev = sourceOrObj.severity || 'info';
+      msg = String(sourceOrObj.message ?? '');
+    } else {
+      // Positional-form: addEvent(source, severity, message)
+      src = String(sourceOrObj || 'SYSTEM');
+      sev = severity || 'info';
+      msg = String(message ?? '');
+    }
+    this.events.unshift({
+      id: `evt-${now}-${Math.random().toString(36).substr(2, 4)}`,
       time: now,
       timeStr: this.formatTime(now),
-      source,
-      severity,
-      message,
-      context
-    };
-    this.events.unshift(event);
+      source: src,
+      severity: sev,
+      message: msg
+    });
     if (this.events.length > 100) this.events.pop();
     this.notify();
   }
@@ -468,6 +541,10 @@ class StateStore {
     } else {
       this.systemHealth = 'NOMINAL';
     }
+  }
+
+  addFault(source, message) {
+    this.addEvent(source, 'warn', message);
   }
 }
 
